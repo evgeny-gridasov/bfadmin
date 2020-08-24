@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style type="text/css">
+        body {
+            color: #aaa;
+            background-color: #202020;
+            font-family: Consolas, monospace;
+            font-size: 20px;
+        }
+
+        img {
+            border: 1px solid black;
+            transition: box-shadow 0.1s ease-in;
+        }
+
+        img:hover {
+            box-shadow:  0 0 20px 0 cornflowerblue;
+            transition: box-shadow 0.1s ease-in;
+        }
+
+        img:active:hover {
+            box-shadow:  0 0 30px 0 cornflowerblue;
+            transition: none;
+        }
+
+        a:focus {
+            outline: none;
+        }
+
+        div {
+            height: 300px;
+            position:absolute; /*it can be fixed too*/
+            left:0; right:0;
+            top:0; bottom:0;
+            margin:auto;
+        }
+    </style>
+    <title>Game Admin Console</title>
+</head>
+<body><div>
+    <table style="margin: auto;" cellspacing="10">
+        <tr>
+            <td align="center" colspan="2">SELECT GAME</td>
+        </tr>
+        <tr>
+            <td style="padding: 30px;"><a href="bf1942.html"><img src="bf1942-large.jpg"/></a></td>
+            <td style="padding: 30px;"><a href="bfv.html"><img src="bfv-large.jpg"/></a></td>
+        </tr>
+    </table></div>
+</body>
+</html>

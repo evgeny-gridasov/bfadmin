@@ -1,0 +1,12 @@
+# Bf Admin bind host:port
+listenAddress = 127.0.0.1:8042
+
+# Battlefield 1942
+bf1942SettingsDir = /opt/bf1942-server/mods/bf1942/settings
+bf1942Exec = /opt/bf1942-server/bf1942_lnxded.static
+bf1942GameSpy = localhost:22000
+
+# Battlefield Vietnam
+bfvSettingsDir = /opt/bfv-server/mods/bfvietnam/settings
+bfvExec = /opt/bfv-server/bfv_linded.static
+bfvGameSpy = localhost:22001
