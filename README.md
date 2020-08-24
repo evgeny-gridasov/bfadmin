@@ -1,4 +1,4 @@
-###BFADMIN
+### BFADMIN
 
 BFADMIN is a Web-based administration tool to control a game server. It may be used to
 change configuration settings, startup and shutdown server processes.
