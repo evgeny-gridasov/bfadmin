@@ -159,17 +159,17 @@ function loadStatus() {
             id("status").style.color = "gold";
             id("startButton").disabled = true;
             id("stopButton").disabled = false;
-            if (onOnline != null ) onOnline();
+            if (typeof onOnline == "function" ) onOnline();
         } else if (status == "STARTING" || status == "STOPPING" ) {
             id("status").style.color = "green";
             id("startButton").disabled = true;
             id("stopButton").disabled = false;
-            if (onStopping != null ) onStopping();
+            if (typeof onStopping == "function" ) onStopping();
         } else {
             id("status").style.color = "black";
             id("startButton").disabled = false;
             id("stopButton").disabled = true;
-            if (onOffline != null ) onOffline();
+            if (typeof onOffline == "function" ) onOffline();
         }
         id("mod").innerText = ajax.response["Modname"];
         id("map").innerText = ajax.response["Mapname"];
