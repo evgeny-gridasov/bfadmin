@@ -46,7 +46,7 @@ func (s *Poller) StartPolling() {
 				st = nil
 				stJson = SERVER_OFFLINE
 			} else { // we're running, yay!
-				log.Println("Polling", s.gameSpy)
+				log.Printf("Polling %s at %s", s.runner.Name, s.gameSpy)
 				st := s.gameSpy.GetStatus()
 				if st != nil {
 					stJson, _ = json.Marshal(st)

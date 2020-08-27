@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        const gameId = "ut2004";
+
+        function onOnline() {
+            id("ut2004console").disabled = false;
+        }
+
+        function onStopping() {
+            id("ut2004console").disabled = true;
+        }
+
+        function onOffline() {
+            id("ut2004console").disabled = true;
+        }
+    </script>
+    <script src="script.js"></script>
+    <style type="text/css">
+        body {
+            background-color: #121a21;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <title>UT2004 Admin Console</title>
+</head>
+<body>
+<div style="text-align: center; width: 100%"><img src="ut2004.png" alt="UT2004 Logo"/>
+    <form method="post">
+        <table align="center" cellspacing="3">
+            <tr>
+                <th class="hdr">SERVER STATUS</th>
+                <th class="hdr">PLAYERS</th>
+            </tr>
+            <tr>
+                <td class="pane">
+                    <table class="settings" style="text-align: left;" width="100%" cellspacing="2">
+                        <tr>
+                            <td>STATUS:</td>
+                            <td id="status" width="100%">
+                        </tr>
+                        <tr>
+                            <td>MOD:</td>
+                            <td id="mod"></td>
+                        </tr>
+                        <tr>
+                            <td>MAP:</td>
+                            <td id="map"></td>
+                        </tr>
+                        <tr>
+                            <td>GAME&nbsp;TYPE:</td>
+                            <td id="gameType"></td>
+                        </tr>
+                        <tr>
+                            <td>PLAYERS:</td>
+                            <td id="players"></td>
+                        </tr>
+                        <tr>
+                            <td>TICKETS:</td>
+                            <td><span class="red" id="tickets1"></span>/<span class="blue" id="tickets2"></span></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="pane" style="width: 600px;">
+                    <table id="playerList" class="settings" style="text-align: left;" width="80%" cellspacing="2">
+                        <tr>
+                            <th>Player</th>
+                            <th>Score</th>
+                            <th>Kills</th>
+                            <th>Deaths</th>
+                            <th>Ping</th>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr><td colspan="4">&nbsp;</td></tr>
+            <tr>
+                <td colspan="4">
+                    <button id="ut2004console" class="move" title="Opens UT2004 Admin Console" onclick="window.open('http://' + window.location.hostname + ':8075'); return false;">Open UT2004 Console</button>
+                    <button id="startButton" class="move" title="Starts the server" onclick="return startServer();">Start Server</button>
+                    <button id="stopButton" class="move" title="Stops the server" onclick="return stopServer();">Stop Server</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="coolAlert" style="background: rgba(0, 0, 0, 0.8); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none;">
+    <div style="width: 300px; height: 200px; right: 0; bottom: 0; top:0; left:0; position: fixed; margin: auto;">
+        <table>
+            <tr>
+                <th class="hdr">SERVER MESSAGE</th>
+            </tr>
+            <tr>
+                <td class="pane settings" style="height: auto; text-align: center; vertical-align: center;">
+                    <div id="serverMessage" style="padding: 10px;"></div>
+                    <button class="move" onclick="closeAlert(); return false;">OK</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

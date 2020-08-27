@@ -10,3 +10,9 @@ bf1942GameSpy = localhost:22000
 bfvSettingsDir = /opt/bfv-server/mods/bfvietnam/settings
 bfvExec = /opt/bfv-server/bfv_linded.static
 bfvGameSpy = localhost:22001
+
+# Unreal Tournament 2004
+ut2004SettingsDir = /opt/ut2004/serverfiles/System
+ut2004Exec = /opt/ut2004/serverfiles/System/ucc-bin
+ut2004ExecArgs = server DM-Rankin?game=XGame.xDeathMatch -nohomedir ini=ut2k4server.ini log=/opt/ut2004/log/server/ut2k4server-game.log
+ut2004GameSpy = localhost:7787

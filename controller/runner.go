@@ -15,15 +15,19 @@ import (
 //
 
 type Runner struct {
+	Name string
 	executable  string
+	execParams []string
 	settingsDir string
 	cmd         * exec.Cmd
 	Status      string
 }
 
-func NewRunner(executable string, settingsDir string) *Runner {
+func NewRunner(name string, executable string, settingsDir string, execParams []string) *Runner {
 	return &Runner{
+		Name: name,
 		executable:  executable,
+		execParams: execParams,
 		settingsDir: settingsDir,
 		Status:      "OFFLINE",
 	}
@@ -39,7 +43,7 @@ func (r* Runner) Start() {
 	r.cmd.Start()
 	if r.cmd.Process != nil {
 		r.Status = "STARTING"
-		log.Printf("Started %s, PID=%d", r.executable, r.cmd.Process.Pid)
+		log.Printf("Started %s, PID=%d", r.cmd, r.cmd.Process.Pid)
 		go r.supervise()
 	} else {
 		log.Printf("Could not start %s", r.executable)
@@ -49,7 +53,7 @@ func (r* Runner) Start() {
 }
 
 func (r* Runner) initCmd() {
-	r.cmd = exec.Command(r.executable)
+	r.cmd = exec.Command(r.executable, r.execParams ...)
 	r.cmd.Dir = filepath.Dir(r.executable)
 	r.cmd.Stdout = os.Stdout
 }

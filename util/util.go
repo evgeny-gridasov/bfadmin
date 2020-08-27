@@ -2,6 +2,7 @@ package util
 
 import (
 	"bufio"
+	"bytes"
 	"log"
 	"os"
 	"strconv"
@@ -57,6 +58,32 @@ func ReadPropertiesFile(file string) map[string]string{
 		}
 	}
 	return m
+}
+
+func ParseCommandLine(line string) []string {
+	var ret []string
+	esc := false
+	var arg bytes.Buffer
+	for i:=0; i< len(line); i++ {
+		c := line[i]
+		if c == ' ' && !esc {
+			if arg.Len() > 0 {
+				ret = append(ret, arg.String())
+			}
+			arg.Reset()
+			continue
+		}
+		if c == '\\' && !esc {
+			esc = true
+			continue
+		}
+		esc = false
+		arg.WriteByte(c)
+	}
+	if arg.Len() > 0 {
+		ret = append(ret, arg.String())
+	}
+	return ret
 }
 
 func CheckErr(err error) bool {

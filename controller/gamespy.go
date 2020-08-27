@@ -166,6 +166,53 @@ func GameSpyBFVParser(m map[string]string) *ServerStatus {
 	return &response
 }
 
+func GameSpyUT2004Parser(m map[string]string) *ServerStatus {
+	if len(m) == 0 {
+		return nil
+	}
+
+	numplayers := util.Atoi(m["numplayers"])
+	var players []Player
+	for i:=0; i< numplayers; i++ {
+		istr := strconv.Itoa(i)
+		name := m["player_"+istr]
+		if name == "" {
+			break
+		}
+		score := util.Atoi(m["frags_"+istr])
+		team := m["team_"+istr]
+		if team == "0" {
+			team = "1"
+		} else {
+			team = "2"
+		}
+		players = append(players, Player {
+			name,
+			team,
+			score,
+			"-",
+			"-",
+			m["ping_" + istr],
+		},
+		)
+	}
+	sort.Slice(players, func(i int, j int) bool {return players[i].Score > players[j].Score})
+	response := ServerStatus{
+		"ONLINE",
+		strings.ToUpper(m["mapname"]),
+		"N/A",
+		strings.ToUpper(m["gametype"]),
+		m["numplayers"],
+		m["maxplayers"],
+		"-",
+		"-",
+		players,
+	}
+
+	return &response
+}
+
+
 func (gs*GameSpy) String() string {
 	return gs.HostPort
 }

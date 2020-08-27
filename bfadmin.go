@@ -121,7 +121,7 @@ func main() {
 	conf := util.ReadPropertiesFile("bfadmin.conf")
 
 	if conf["bf1942Exec"] != "" {
-		bf1942Runner := controller.NewRunner(conf["bf1942Exec"], conf["bf1942SettingsDir"])
+		bf1942Runner := controller.NewRunner("bf1942", conf["bf1942Exec"], conf["bf1942SettingsDir"],	nil)
 		bf1942GameSpy := controller.GameSpy{
 			HostPort: conf["bf1942GameSpy"],
 			Parser:   controller.GameSpyBF1942Parser,
@@ -138,7 +138,7 @@ func main() {
 	}
 
 	if conf["bfvExec"] != "" {
-		bfvRunner := controller.NewRunner(conf["bfvExec"], conf["bfvSettingsDir"])
+		bfvRunner := controller.NewRunner("bfv", conf["bfvExec"], conf["bfvSettingsDir"], nil)
 		bfvGameSpy := controller.GameSpy{
 			HostPort: conf["bfvGameSpy"],
 			Parser:   controller.GameSpyBFVParser,
@@ -151,6 +151,24 @@ func main() {
 			bfvPoller,
 			bfvRunner,
 			conf["bfvSettingsDir"],
+		}
+	}
+
+	if conf["ut2004Exec"] != "" {
+		ut2004Runner := controller.NewRunner("ut2004", conf["ut2004Exec"], conf["ut2004SettingsDir"],
+			util.ParseCommandLine(conf["ut2004ExecArgs"]))
+		ut2004GameSpy := controller.GameSpy{
+			HostPort: conf["ut2004GameSpy"],
+			Parser:   controller.GameSpyUT2004Parser,
+		}
+		ut2004Poller := controller.NewPoller(&ut2004GameSpy, ut2004Runner)
+		ut2004Poller.StartPolling()
+
+		games["ut2004"] = &Game{
+			"ut2004",
+			ut2004Poller,
+			ut2004Runner,
+			conf["ut2004SettingsDir"],
 		}
 	}
 

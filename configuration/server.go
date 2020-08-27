@@ -231,6 +231,8 @@ func copyFile(src string, dst string) {
 		util.CheckErr(err)
 		err = ioutil.WriteFile(dst, data, 0644)
 		util.CheckErr(err)
+	} else {
+		util.CheckErr(err)
 	}
 }
 

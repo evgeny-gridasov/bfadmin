@@ -104,6 +104,9 @@ function closeAlert() {
 }
 
 function loadConfig() {
+    if (id("maxPlayers") == null) {
+        return;
+    }
     let ajax = new XMLHttpRequest();
     ajax.open("GET", "config?gameId=" + gameId);
     ajax.responseType = "json";
@@ -156,14 +159,17 @@ function loadStatus() {
             id("status").style.color = "gold";
             id("startButton").disabled = true;
             id("stopButton").disabled = false;
+            if (onOnline != null ) onOnline();
         } else if (status == "STARTING" || status == "STOPPING" ) {
             id("status").style.color = "green";
             id("startButton").disabled = true;
             id("stopButton").disabled = false;
+            if (onStopping != null ) onStopping();
         } else {
             id("status").style.color = "black";
             id("startButton").disabled = false;
             id("stopButton").disabled = true;
+            if (onOffline != null ) onOffline();
         }
         id("mod").innerText = ajax.response["Modname"];
         id("map").innerText = ajax.response["Mapname"];
@@ -178,21 +184,23 @@ function loadStatus() {
         }
 
         let players = ajax.response["Players"];
-        for (let i=0; i<players.length; i++) {
-            let player = players[i];
-            let tr = playerList.insertRow(i+1);
-            let playerName = tr.insertCell(0);
-            playerName.innerText = player["Name"];
-            if (player["Team"] == "1") {
-                playerName.className = "red";
+        if (players != null) {
+            for (let i = 0; i < players.length; i++) {
+                let player = players[i];
+                let tr = playerList.insertRow(i + 1);
+                let playerName = tr.insertCell(0);
+                playerName.innerText = player["Name"];
+                if (player["Team"] == "1") {
+                    playerName.className = "red";
+                }
+                if (player["Team"] == "2") {
+                    playerName.className = "blue";
+                }
+                tr.insertCell(1).innerText = player["Score"];
+                tr.insertCell(2).innerText = player["Kills"];
+                tr.insertCell(3).innerText = player["Deaths"];
+                tr.insertCell(4).innerText = player["Ping"];
             }
-            if (player["Team"] == "2") {
-                playerName.className = "blue";
-            }
-            tr.insertCell(1).innerText = player["Score"];
-            tr.insertCell(2).innerText = player["Kills"];
-            tr.insertCell(3).innerText = player["Deaths"];
-            tr.insertCell(4).innerText = player["Ping"];
         }
 
         window.setTimeout(loadStatus, timeout);
