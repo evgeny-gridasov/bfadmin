@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"syscall"
+	"time"
 )
 
 //
@@ -15,19 +16,21 @@ import (
 //
 
 type Runner struct {
-	Name string
+	Name        string
 	executable  string
-	execParams []string
+	execParams  []string
+	maxRunTime  time.Duration
 	settingsDir string
 	cmd         * exec.Cmd
 	Status      string
 }
 
-func NewRunner(name string, executable string, settingsDir string, execParams []string) *Runner {
+func NewRunner(name string, executable string, settingsDir string, execParams []string, maxRunTimeMin int) *Runner {
 	return &Runner{
 		Name: name,
 		executable:  executable,
 		execParams: execParams,
+		maxRunTime:  time.Duration(maxRunTimeMin) * time.Minute,
 		settingsDir: settingsDir,
 		Status:      "OFFLINE",
 	}
@@ -64,7 +67,10 @@ func (r* Runner) supervise() {
 		r.Status = "OFFLINE"
 	} ()
 	for {
-		err := r.cmd.Wait()
+		shutdown := r.scheduleShutdown()
+		err := r.cmd.Wait() // "waitpid"
+		r.cancelShutdown(shutdown)
+
 		if err == nil {
 			log.Printf("Process PID=%d exited normally", r.cmd.Process.Pid)
 			return
@@ -85,6 +91,35 @@ func (r* Runner) supervise() {
 		r.cmd.Start()
 		r.Status = "STARTING"
 		log.Printf("Restarted %s, PID=%d", r.executable, r.cmd.Process.Pid)
+	}
+}
+
+func (r* Runner) scheduleShutdown() chan<- bool {
+	if r.maxRunTime > 0 {
+		shutdown := make(chan bool)
+		timer := time.NewTimer(r.maxRunTime)
+		go func() {
+			log.Printf("Setting up shutdown timer for %s", r.Name)
+			select {
+			case <-timer.C:
+				log.Printf("Max running time eached for %s", r.Name)
+				r.Stop()
+				<-shutdown // clean up shutdown chan
+			case <-shutdown:
+				if !timer.Stop() { // clean up chan (only if timer fired after we received shutdown)
+					<-timer.C
+				}
+				log.Printf("Shutdown timer stopped for %s", r.Name)
+			}
+		}()
+		return shutdown
+	}
+	return nil
+}
+
+func (r Runner) cancelShutdown(shutdown chan<- bool) {
+	if shutdown != nil {
+		shutdown <- true
 	}
 }
 

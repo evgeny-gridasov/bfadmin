@@ -1,5 +1,7 @@
 # Bf Admin bind host:port
 listenAddress = 127.0.0.1:8042
+# Max run time in minutes, 0 = disable
+maxRunTimeMin = 0
 
 # Battlefield 1942
 bf1942SettingsDir = /opt/bf1942-server/mods/bf1942/settings

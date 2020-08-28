@@ -120,8 +120,11 @@ func getGameId(req *http.Request) string {
 func main() {
 	conf := util.ReadPropertiesFile("bfadmin.conf")
 
+	maxRunTimeMin := util.Atoi(conf["maxRunTimeMin"])
+
 	if conf["bf1942Exec"] != "" {
-		bf1942Runner := controller.NewRunner("bf1942", conf["bf1942Exec"], conf["bf1942SettingsDir"],	nil)
+		bf1942Runner := controller.NewRunner("bf1942", conf["bf1942Exec"], conf["bf1942SettingsDir"],
+			nil, maxRunTimeMin)
 		bf1942GameSpy := controller.GameSpy{
 			HostPort: conf["bf1942GameSpy"],
 			Parser:   controller.GameSpyBF1942Parser,
@@ -138,7 +141,8 @@ func main() {
 	}
 
 	if conf["bfvExec"] != "" {
-		bfvRunner := controller.NewRunner("bfv", conf["bfvExec"], conf["bfvSettingsDir"], nil)
+		bfvRunner := controller.NewRunner("bfv", conf["bfvExec"], conf["bfvSettingsDir"],
+			nil, maxRunTimeMin)
 		bfvGameSpy := controller.GameSpy{
 			HostPort: conf["bfvGameSpy"],
 			Parser:   controller.GameSpyBFVParser,
@@ -156,7 +160,7 @@ func main() {
 
 	if conf["ut2004Exec"] != "" {
 		ut2004Runner := controller.NewRunner("ut2004", conf["ut2004Exec"], conf["ut2004SettingsDir"],
-			util.ParseCommandLine(conf["ut2004ExecArgs"]))
+			util.ParseCommandLine(conf["ut2004ExecArgs"]), maxRunTimeMin)
 		ut2004GameSpy := controller.GameSpy{
 			HostPort: conf["ut2004GameSpy"],
 			Parser:   controller.GameSpyUT2004Parser,
