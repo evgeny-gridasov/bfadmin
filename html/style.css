@@ -94,3 +94,36 @@ button:focus {
 .blue {
     color: #88f;
 }
+
+.coolAlert {
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.coolAlertInner {
+    width: 300px;
+    height: 200px;
+    right: 0;
+    bottom: 0;
+    top:0;
+    left:0;
+    position: fixed;
+    margin: auto;
+}
+
+.coolAlertMsg {
+    border-radius: 7px;
+    border: 1px solid black;
+    background-color: #333;
+    width: 300px;
+    vertical-align: top;
+    padding: 10px;
+    color: #ccc;
+    height: auto;
+    text-align: center;
+    vertical-align: center;
+}

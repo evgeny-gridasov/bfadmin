@@ -79,9 +79,9 @@
                     </select>
                 </td>
                 <td>
-                    <button class="move" onclick="return add();">&gt;</button>
+                    <button onclick="return add();">&gt;</button>
                     <br/>
-                    <button class="move" onclick="return remove();">&lt;</button>
+                    <button onclick="return remove();">&lt;</button>
                 </td>
                 <td class="pane">
                     <select id="selected" size="16" multiple>
@@ -137,26 +137,26 @@
             <tr><td colspan="4">&nbsp;</td></tr>
             <tr>
                 <td colspan="4">
-                    <button class="move" title="Save changes without restarting the server" onclick="return save();">Save Changes</button>
-                    <button class="move" title="Restores default configuration without a restart" onclick="return restore();">Restore Defaults</button>
-                    <button id="startButton" class="move" title="Starts the server applying any pending changes" onclick="return startServer();">Start Server</button>
-                    <button id="stopButton" class="move" title="Stops the server" onclick="return stopServer();">Stop Server</button>
+                    <button title="Save changes without restarting the server" onclick="return save();">Save Changes</button>
+                    <button title="Restores default configuration without a restart" onclick="return restore();">Restore Defaults</button>
+                    <button id="startButton" title="Starts the server applying any pending changes" onclick="return startServer();">Start Server</button>
+                    <button id="stopButton" title="Stops the server" onclick="return stopServer();">Stop Server</button>
                 </td>
             </tr>
         </table>
     </form>
 </div>
 
-<div id="coolAlert" style="background: rgba(0, 0, 0, 0.8); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none;">
-    <div style="width: 300px; height: 200px; right: 0; bottom: 0; top:0; left:0; position: fixed; margin: auto;">
+<div id="coolAlert" class="coolAlert" style="display: none;">
+    <div class="coolAlertInner">
         <table>
             <tr>
                 <th class="hdr">SERVER MESSAGE</th>
             </tr>
             <tr>
-                <td class="pane settings" style="height: auto; text-align: center; vertical-align: center;">
+                <td class="coolAlertMsg">
                     <div id="serverMessage" style="padding: 10px;"></div>
-                    <button class="move" onclick="closeAlert(); return false;">OK</button>
+                    <button onclick="closeAlert(); return false;">OK</button>
                 </td>
             </tr>
         </table>
