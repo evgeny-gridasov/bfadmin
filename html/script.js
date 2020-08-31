@@ -97,10 +97,14 @@ function send(request, url, func) {
 function showAlert(message) {
     id("serverMessage").innerText = message;
     id("coolAlert").style.display = "block";
+    setTimeout( function() {
+        id("coolAlertInner").className = "coolAlertInner";
+    }, 20);
 }
 
 function closeAlert() {
     id("coolAlert").style.display = "none";
+    id("coolAlertInner").className = "coolAlertInner coolAlertInnerHidden"
 }
 
 function loadConfig() {
