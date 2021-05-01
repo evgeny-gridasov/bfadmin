@@ -45,7 +45,7 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 	selectedMapsSet := make(map[string]bool)
 
 	switch gameId {
-	case "bfv", "bh1942":
+	case "bfv", "bf1942":
 		config.SelectedMaps = getSelectedRefactor1Maps(reader, selectedMapsSet)
 	case "bf2":
 		config.SelectedMaps = getSelectedRefactor2Maps(reader, selectedMapsSet)
