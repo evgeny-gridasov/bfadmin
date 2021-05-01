@@ -2,7 +2,6 @@ package controller
 
 import (
 	"bfadmin/util"
-	"encoding/json"
 	"net"
 	"sort"
 	"strconv"
@@ -23,17 +22,8 @@ func (gs *GameSpy) GetStatus() *ServerStatus {
 	return nil
 }
 
-func (gs *GameSpy) GetStatusJson() []byte {
-	st := gs.GetStatus()
-	if st == nil {
-		return SERVER_OFFLINE
-	}
-	stJson, _ := json.Marshal(st)
-	return stJson
-}
-
 func (gs *GameSpy) readStatus() map[string] string {
-	m := make(map[string]string)
+	ret := make(map[string]string)
 	conn, err := net.Dial("udp", gs.HostPort)
 	defer conn.Close()
 	util.CheckErr(err)
@@ -43,7 +33,7 @@ func (gs *GameSpy) readStatus() map[string] string {
 
 	_, err = conn.Write([]byte("\\status\\"))
 	if util.CheckErr(err) {
-		return m
+		return ret
 	}
 
 	buff :=  make([]byte, 16384)
@@ -58,12 +48,12 @@ func (gs *GameSpy) readStatus() map[string] string {
 		}
 
 		reply := string(buff[:read])
-		queryId, final := convertToMap(m, reply)
+		queryId, final := convertToMap(ret, reply)
 		if final { // final queryId, update maxQueryId
 			maxQueryId = queryId
 		}
 	}
-	return m
+	return ret
 }
 
 // Converts string like

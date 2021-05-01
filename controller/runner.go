@@ -127,6 +127,10 @@ func (r* Runner) Stop() {
 	if r.cmd != nil {
 		log.Printf("Stopping PID=%d", r.cmd.Process.Pid)
 		r.Status = "STOPPING"
-		r.cmd.Process.Signal(syscall.Signal(2))
+		if r.Name == "bf2" { // BF2 is special =(
+			r.cmd.Process.Signal(syscall.Signal(15))
+		} else {
+			r.cmd.Process.Signal(syscall.Signal(2))
+		}
 	}
 }

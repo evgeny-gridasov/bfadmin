@@ -9,17 +9,17 @@ import (
 )
 
 type Poller struct {
-	gameSpy           *GameSpy
+	statusProtocol    StatusProtocol
 	runner            *Runner
 	currentStatus     *ServerStatus
 	currentStatusJson []byte
 	lock              sync.RWMutex
 }
 
-func NewPoller(gameSpy *GameSpy, runner *Runner) * Poller{
+func NewPoller(statusProtocol StatusProtocol, runner *Runner) * Poller{
 	p := Poller{
-		gameSpy: gameSpy,
-		runner: runner,
+		statusProtocol: statusProtocol,
+		runner:         runner,
 	}
 	return &p
 }
@@ -46,8 +46,8 @@ func (s *Poller) StartPolling() {
 				st = nil
 				stJson = SERVER_OFFLINE
 			} else { // we're running, yay!
-				log.Printf("Polling %s at %s", s.runner.Name, s.gameSpy)
-				st := s.gameSpy.GetStatus()
+				log.Printf("Polling %s at %s", s.runner.Name, s.statusProtocol)
+				st := s.statusProtocol.GetStatus()
 				if st != nil {
 					stJson, _ = json.Marshal(st)
 				} else { // possibly still starting

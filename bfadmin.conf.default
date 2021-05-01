@@ -13,6 +13,12 @@ bfvSettingsDir = /opt/bfv-server/mods/bfvietnam/settings
 bfvExec = /opt/bfv-server/bfv_linded.static
 bfvGameSpy = localhost:22001
 
+# Battlefield 2
+bf2SettingsDir = /opt/bf2-server/mods/bf2/settings
+bf2Exec = /opt/bf2-server/start.sh +noStatusMonitor 1
+bf2ExecArgs = +noStatusMonitor 1
+bf2GameSpy = localhost:29900
+
 # Unreal Tournament 2004
 ut2004SettingsDir = /opt/ut2004/serverfiles/System
 ut2004Exec = /opt/ut2004/serverfiles/System/ucc-bin

@@ -9,6 +9,7 @@ Games supported by BFADMIN:
 
 - Battlefield Vietnam
 - Battlefield 1942
+- Battlefield 2
 - Unreal Tournament 2004
 
 It is recommended to put BFADMIN behind NGINX and password protect it.

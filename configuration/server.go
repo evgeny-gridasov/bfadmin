@@ -6,8 +6,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"strconv"
-	"strings"
 )
 
 const SERVERSETTINGS = "serversettings.con"
@@ -29,36 +27,11 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 	}
 
 	reader := bufio.NewReader(serverSettings)
-	for {
-		readString, err := reader.ReadString('\n')
-		fields := strings.Fields(readString)
-		if len(fields) == 2 {
-			switch fields[0] {
-			case "game.serverGameTime":
-				config.GameTime =util.Atoi(fields[1])
-			case "game.serverMaxPlayers":
-				config.MaxPlayers =util.Atoi(fields[1])
-			case "game.serverNumberOfRounds":
-				config.NumberOfRounds =util.Atoi(fields[1])
-			case "game.serverSpawnTime":
-				config.SpawnTime =util.Atoi(fields[1])
-			case "game.serverGameStartDelay":
-				config.GameStartDelay =util.Atoi(fields[1])
-			case "game.serverTicketRatio":
-				config.TicketRatio =util.Atoi(fields[1])
-			case "game.serverSoldierFriendlyFire":
-				config.FriendlyFire =util.Atoi(fields[1])
-			case "game.serverAlliedTeamRatio":
-				config.AlliedTeamRatio =util.Atoi(fields[1])
-			case "game.serverAxisTeamRatio":
-				config.AxisTeamRatio =util.Atoi(fields[1])
-			case "game.serverCoopAiSkill":
-				config.CoopAiSkill =util.Atoi(fields[1])
-			}
-		}
-		if err != nil {
-			break
-		}
+	switch gameId {
+	case "bfv", "bf1942":
+		readRefactor1Config(reader, &config)
+	case "bf2":
+		readRefactor2Config(reader, &config)
 	}
 
 	// maplist
@@ -69,26 +42,14 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 	}
 
 	reader = bufio.NewReader(maplistCon)
-	selectedMaps := make([]GameMap, 0)
-	selectedMapsSet :=make(map[string]bool)
-	for {
-		readString, err := reader.ReadString('\n')
-		fields := strings.Fields(readString)
+	selectedMapsSet := make(map[string]bool)
 
-		if len(fields) == 4 {
-			if fields[0] == "game.addLevel" {
-				selectedMaps = append(selectedMaps, GameMap{
-					util.MakeId(fields[1], fields[2], fields[3]),
-					util.MakeName(fields[1], fields[3]),
-				})
-				selectedMapsSet[fields[1]] = true
-			}
-		}
-		if err != nil {
-			break
-		}
+	switch gameId {
+	case "bfv", "bh1942":
+		config.SelectedMaps = getSelectedRefactor1Maps(reader, selectedMapsSet)
+	case "bf2":
+		config.SelectedMaps = getSelectedRefactor2Maps(reader, selectedMapsSet)
 	}
-	config.SelectedMaps = selectedMaps
 
 	// all maps
 	allmapsCon, err := os.Open("levels/" + gameId)
@@ -98,29 +59,18 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 	}
 
 	reader = bufio.NewReader(allmapsCon)
-	allMaps := make([]GameMap, 0)
-	for {
-		readString, err := reader.ReadString('\n')
-		fields := strings.Fields(readString)
-
-		if len(fields) == 4 {
-			if fields[0] == "game.addLevel" && !selectedMapsSet[fields[1]] {
-				allMaps = append(allMaps, GameMap{
-					util.MakeId(fields[1], fields[2], fields[3]),
-					util.MakeName(fields[1], fields[3]),
-				})
-			}
-		}
-		if err != nil {
-			break
-		}
+	switch gameId {
+	case "bfv", "bf1942":
+		config.AvailableMaps = getAllRefactor1Maps(reader, selectedMapsSet)
+	case "bf2":
+		config.AvailableMaps = getAllRefactor2Maps(reader, selectedMapsSet)
 	}
-	config.AvailableMaps = allMaps
 
 	return config
 }
 
-func WriteConfig(gameId string, dir string, config * ServerConfig) {
+
+func WriteConfig(gameId string, dir string, config *ServerConfig) {
 	createSavedConfigs(dir)
 	// serversettings
 
@@ -131,47 +81,18 @@ func WriteConfig(gameId string, dir string, config * ServerConfig) {
 	}
 
 	reader := bufio.NewReader(serverSettings)
-	sb := strings.Builder{}
-	for {
-		readString, err := reader.ReadString('\n')
-		fields := strings.Fields(readString)
-		if len(fields) == 2 {
-			sb.WriteString(fields[0] + " ")
-			switch fields[0] {
-			case "game.serverGameTime":
-				sb.WriteString(strconv.Itoa(config.GameTime))
-			case "game.serverMaxPlayers":
-				sb.WriteString(strconv.Itoa(config.MaxPlayers))
-			case "game.serverNumberOfRounds":
-				sb.WriteString(strconv.Itoa(config.NumberOfRounds))
-			case "game.serverSpawnTime":
-				sb.WriteString(strconv.Itoa(config.SpawnTime))
-			case "game.serverGameStartDelay":
-				sb.WriteString(strconv.Itoa(config.GameStartDelay))
-			case "game.serverTicketRatio":
-				sb.WriteString(strconv.Itoa(config.TicketRatio))
-			case "game.serverSoldierFriendlyFire":
-				sb.WriteString(strconv.Itoa(config.FriendlyFire))
-			case "game.serverAlliedTeamRatio":
-				sb.WriteString(strconv.Itoa(config.AlliedTeamRatio))
-			case "game.serverAxisTeamRatio":
-				sb.WriteString(strconv.Itoa(config.AxisTeamRatio))
-			case "game.serverCoopAiSkill":
-				sb.WriteString(strconv.Itoa(config.CoopAiSkill))
-			default:
-				sb.WriteString(fields[1])
-			}
-			sb.WriteString("\n")
-		} else {
-			sb.WriteString(readString)
-		}
-		if err != nil {
-			break
-		}
+	var newConfig string
+	switch gameId {
+	case "bfv", "bf1942":
+		newConfig = renderRefactor1Config(reader, config)
+	case "bf2":
+		newConfig = renderRefactor2Config(reader, config)
+	default:
+		return
 	}
 
 	serverSettings.Close()
-	err = ioutil.WriteFile(filepath.Join(dir, SERVERSETTINGS_SAVED), []byte(sb.String()), 0644)
+	err = ioutil.WriteFile(filepath.Join(dir, SERVERSETTINGS_SAVED), []byte(newConfig), 0644)
 	util.CheckErr(err)
 
 	// maplist
@@ -179,21 +100,15 @@ func WriteConfig(gameId string, dir string, config * ServerConfig) {
 		return
 	}
 
-	sb.Reset()
-	for i:=0; i< len(config.SelectedMaps); i++ {
-		split := strings.Split(config.SelectedMaps[i].Id, ":")
-		if len(split) == 3 {
-			sb.WriteString( "game.addLevel " + split[0] + " " + split[1] + " " + split[2] + "\n")
-		}
-	}
-	split := strings.Split(config.SelectedMaps[0].Id, ":")
-	if len(split) == 3 {
-		sb.WriteString( "game.setCurrentLevel " + split[0] + " " + split[1] + " " + split[2] + "\n")
-	} else {
-		return
+	var newMapConfig string
+	switch gameId {
+	case "bfv", "bf1942":
+		newMapConfig = renderRefactor1MapsList(config)
+	case "bf2":
+		newMapConfig = renderRefactor2MapsList(config)
 	}
 
-	err = ioutil.WriteFile(filepath.Join(dir, MAPLIST_SAVED), []byte(sb.String()), 0644)
+	err = ioutil.WriteFile(filepath.Join(dir, MAPLIST_SAVED), []byte(newMapConfig), 0644)
 	util.CheckErr(err)
 }
 
@@ -235,4 +150,3 @@ func copyFile(src string, dst string) {
 		util.CheckErr(err)
 	}
 }
-

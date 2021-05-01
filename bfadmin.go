@@ -122,6 +122,7 @@ func main() {
 
 	maxRunTimeMin := util.Atoi(conf["maxRunTimeMin"])
 
+	// BF1942
 	if conf["bf1942Exec"] != "" {
 		bf1942Runner := controller.NewRunner("bf1942", conf["bf1942Exec"], conf["bf1942SettingsDir"],
 			nil, maxRunTimeMin)
@@ -140,6 +141,7 @@ func main() {
 		}
 	}
 
+	// BFVietnam
 	if conf["bfvExec"] != "" {
 		bfvRunner := controller.NewRunner("bfv", conf["bfvExec"], conf["bfvSettingsDir"],
 			nil, maxRunTimeMin)
@@ -158,6 +160,26 @@ func main() {
 		}
 	}
 
+	// BF2
+	if conf["bf2Exec"] != "" {
+		bf2Runner := controller.NewRunner("bf2", conf["bf2Exec"], conf["bf2SettingsDir"],
+			util.ParseCommandLine(conf["bf2ExecArgs"]), maxRunTimeMin)
+		bf2GameSpy := controller.GameSpyV3{
+			HostPort: conf["bf2GameSpy"],
+			Parser:   controller.GameSpyBF2Parser,
+		}
+		bf2Poller := controller.NewPoller(&bf2GameSpy, bf2Runner)
+		bf2Poller.StartPolling()
+
+		games["bf2"] = &Game{
+			"bf2",
+			bf2Poller,
+			bf2Runner,
+			conf["bf2SettingsDir"],
+		}
+	}
+
+	// UT2004
 	if conf["ut2004Exec"] != "" {
 		ut2004Runner := controller.NewRunner("ut2004", conf["ut2004Exec"], conf["ut2004SettingsDir"],
 			util.ParseCommandLine(conf["ut2004ExecArgs"]), maxRunTimeMin)
