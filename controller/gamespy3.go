@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"net"
 	"sort"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -132,22 +131,24 @@ func GameSpyBF2Parser(m map[string]string) *ServerStatus {
 	if len(m) == 0 {
 		return nil
 	}
-
+	aiBot_ := strings.Split(m["AIBot_"], ",")
 	player_ := strings.Split(m["player_"], ",")
 	team_ := strings.Split(m["team_"], ",")
 	score_ := strings.Split(m["score_"], ",")
 	skill_ := strings.Split(m["skill_"], ",")
 	deaths_ := strings.Split(m["deaths_"], ",")
 	ping_ := strings.Split(m["ping_"], ",")
-	players := make([]Player, len(player_))
+	players := make([]Player, 0)
 	for i:=0; i< len(player_); i++ {
-		players[i] = Player {
-			player_[i],
-			team_[i],
-			util.Atoi(score_[i]),
-			skill_[i],
-			deaths_[i],
-			ping_[i],
+		if aiBot_[i] == "0"  {
+			players = append(players, Player{
+				player_[i],
+				team_[i],
+				util.Atoi(score_[i]),
+				skill_[i],
+				deaths_[i],
+				ping_[i],
+			})
 		}
 	}
 	sort.Slice(players, func(i int, j int) bool {return players[i].Score > players[j].Score})
@@ -156,7 +157,7 @@ func GameSpyBF2Parser(m map[string]string) *ServerStatus {
 		strings.ToUpper(m["mapname"]),
 		strings.ToUpper(m["gamevariant"]),
 		strings.ToUpper(m["gametype"]),
-		strconv.Itoa(len(player_)),
+		m["numplayers"],
 		m["maxplayers"],
 		"-",
 		"-",
