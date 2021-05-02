@@ -29,9 +29,9 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 	reader := bufio.NewReader(serverSettings)
 	switch gameId {
 	case "bfv", "bf1942":
-		readRefactor1Config(reader, &config)
+		readRefractor1Config(reader, &config)
 	case "bf2":
-		readRefactor2Config(reader, &config)
+		readRefractor2Config(reader, &config)
 	}
 
 	// maplist
@@ -46,9 +46,9 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 
 	switch gameId {
 	case "bfv", "bf1942":
-		config.SelectedMaps = getSelectedRefactor1Maps(reader, selectedMapsSet)
+		config.SelectedMaps = getSelectedRefractor1Maps(reader, selectedMapsSet)
 	case "bf2":
-		config.SelectedMaps = getSelectedRefactor2Maps(reader, selectedMapsSet)
+		config.SelectedMaps = getSelectedRefractor2Maps(reader, selectedMapsSet)
 	}
 
 	// all maps
@@ -61,9 +61,9 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 	reader = bufio.NewReader(allmapsCon)
 	switch gameId {
 	case "bfv", "bf1942":
-		config.AvailableMaps = getAllRefactor1Maps(reader, selectedMapsSet)
+		config.AvailableMaps = getAllRefractor1Maps(reader, selectedMapsSet)
 	case "bf2":
-		config.AvailableMaps = getAllRefactor2Maps(reader, selectedMapsSet)
+		config.AvailableMaps = getAllRefractor2Maps(reader, selectedMapsSet)
 	}
 
 	return config
@@ -84,9 +84,9 @@ func WriteConfig(gameId string, dir string, config *ServerConfig) {
 	var newConfig string
 	switch gameId {
 	case "bfv", "bf1942":
-		newConfig = renderRefactor1Config(reader, config)
+		newConfig = renderRefractor1Config(reader, config)
 	case "bf2":
-		newConfig = renderRefactor2Config(reader, config)
+		newConfig = renderRefractor2Config(reader, config)
 	default:
 		return
 	}
@@ -103,9 +103,9 @@ func WriteConfig(gameId string, dir string, config *ServerConfig) {
 	var newMapConfig string
 	switch gameId {
 	case "bfv", "bf1942":
-		newMapConfig = renderRefactor1MapsList(config)
+		newMapConfig = renderRefractor1MapsList(config)
 	case "bf2":
-		newMapConfig = renderRefactor2MapsList(config)
+		newMapConfig = renderRefractor2MapsList(config)
 	}
 
 	err = ioutil.WriteFile(filepath.Join(dir, MAPLIST_SAVED), []byte(newMapConfig), 0644)

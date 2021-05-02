@@ -8,9 +8,9 @@ import (
 )
 
 //
-// Refactor 1 Engine config: BFV, BF1942
+// Refractor 1 Engine config: BFV, BF1942
 //
-func readRefactor1Config(reader *bufio.Reader, config *ServerConfig) {
+func readRefractor1Config(reader *bufio.Reader, config *ServerConfig) {
 	for {
 		readString, err := reader.ReadString('\n')
 		fields := strings.Fields(readString)
@@ -44,7 +44,7 @@ func readRefactor1Config(reader *bufio.Reader, config *ServerConfig) {
 	}
 }
 
-func getSelectedRefactor1Maps(reader *bufio.Reader, selectedMapsSet map[string]bool) []GameMap {
+func getSelectedRefractor1Maps(reader *bufio.Reader, selectedMapsSet map[string]bool) []GameMap {
 	selectedMaps := make([]GameMap, 0)
 	for {
 		readString, err := reader.ReadString('\n')
@@ -66,7 +66,7 @@ func getSelectedRefactor1Maps(reader *bufio.Reader, selectedMapsSet map[string]b
 	return selectedMaps
 }
 
-func getAllRefactor1Maps(reader *bufio.Reader, selectedMapsSet map[string]bool) []GameMap {
+func getAllRefractor1Maps(reader *bufio.Reader, selectedMapsSet map[string]bool) []GameMap {
 	allMaps := make([]GameMap, 0)
 	for {
 		readString, err := reader.ReadString('\n')
@@ -87,7 +87,7 @@ func getAllRefactor1Maps(reader *bufio.Reader, selectedMapsSet map[string]bool) 
 	return allMaps
 }
 
-func renderRefactor1Config(reader *bufio.Reader, config *ServerConfig) string {
+func renderRefractor1Config(reader *bufio.Reader, config *ServerConfig) string {
 	sb := strings.Builder{}
 	for {
 		readString, err := reader.ReadString('\n')
@@ -129,7 +129,7 @@ func renderRefactor1Config(reader *bufio.Reader, config *ServerConfig) string {
 	return sb.String()
 }
 
-func renderRefactor1MapsList(config *ServerConfig) string {
+func renderRefractor1MapsList(config *ServerConfig) string {
 	sb := strings.Builder{}
 	for i := 0; i < len(config.SelectedMaps); i++ {
 		split := strings.Split(config.SelectedMaps[i].Id, ":")
