@@ -62,7 +62,7 @@
                             <td>%</td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="left">MEC/US BOT RATIO:</td>
+                            <td colspan="2" align="left"><span class="red">MEC</span>/<span class="blue">US</span> BOT RATIO:</td>
                             <td><input id="teamRatioBlue" size="2" value=""/></td>
                             <td>%</td>
                         </tr>
@@ -79,7 +79,7 @@
                     </table>
                 </td>
                 <td class="pane">
-                    <select id="maps" size="16" multiple>
+                    <select id="maps" size="14" multiple>
                     </select>
                 </td>
                 <td>
@@ -88,7 +88,7 @@
                     <button onclick="return remove();">&lt;</button>
                 </td>
                 <td class="pane">
-                    <select id="selected" size="16" multiple>
+                    <select id="selected" size="14" multiple>
                     </select>
                 </td>
             </tr>
@@ -120,7 +120,7 @@
                             <td>PLAYERS:</td>
                             <td id="players"></td>
                         </tr>
-                        <tr>
+                        <tr style="display: none;">
                             <td>TICKETS:</td>
                             <td><span class="red" id="tickets1"></span>/<span class="blue" id="tickets2"></span></td>
                         </tr>
