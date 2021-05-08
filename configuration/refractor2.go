@@ -35,6 +35,8 @@ func readRefractor2Config(reader *bufio.Reader, config *ServerConfig) {
 				config.AxisTeamRatio = util.Atoi(fields[1])
 			case "sv.coopBotDifficulty":
 				config.CoopAiSkill = util.Atoi(fields[1])
+			case "sv.botSkill":
+				config.CoopAiSkill = int(100 * util.Atof(fields[1]))
 			}
 		}
 		if err != nil {
@@ -53,7 +55,7 @@ func getSelectedRefractor2Maps(reader *bufio.Reader, selectedMapsSet map[string]
 			if fields[0] == "mapList.append" {
 				selectedMaps = append(selectedMaps, GameMap{
 					util.MakeId(fields[1], fields[2], fields[3]),
-					fields[1],
+					util.MakeNameRefractor2(fields[1], fields[2], fields[3]),
 				})
 				selectedMapsSet[fields[1]] = true
 			}
@@ -75,7 +77,7 @@ func getAllRefractor2Maps(reader *bufio.Reader, selectedMapsSet map[string]bool)
 			if fields[0] == "mapList.append" && !selectedMapsSet[fields[1]] {
 				allMaps = append(allMaps, GameMap{
 					util.MakeId(fields[1], fields[2], fields[3]),
-					fields[1],
+					util.MakeNameRefractor2(fields[1], fields[2], fields[3]),
 				})
 			}
 		}
@@ -112,8 +114,10 @@ func renderRefractor2Config(reader *bufio.Reader, config *ServerConfig) string {
 				sb.WriteString(strconv.Itoa(config.AlliedTeamRatio))
 			case "sv.coopBotCount":
 				sb.WriteString(strconv.Itoa(config.AxisTeamRatio))
-			case "sv.coopBotDifficulty":
+			case "sv.coopBotDifficulty": // bf2
 				sb.WriteString(strconv.Itoa(config.CoopAiSkill))
+			case "sv.botSkill": // bf2142
+				sb.WriteString(strconv.FormatFloat(float64(config.CoopAiSkill) / 100.0, 'f', 2, 64))
 			default:
 				sb.WriteString(fields[1])
 			}

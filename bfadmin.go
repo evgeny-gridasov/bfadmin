@@ -179,6 +179,25 @@ func main() {
 		}
 	}
 
+	// BF2142
+	if conf["bf2142Exec"] != "" {
+		bf2142Runner := controller.NewRunner("bf2142", conf["bf2142Exec"], conf["bf2142SettingsDir"],
+			util.ParseCommandLine(conf["bf2142ExecArgs"]), maxRunTimeMin)
+		bf2142GameSpy := controller.GameSpyV3{
+			HostPort: conf["bf2142GameSpy"],
+			Parser:   controller.GameSpyBF2Parser,
+		}
+		bf2142Poller := controller.NewPoller(&bf2142GameSpy, bf2142Runner)
+		bf2142Poller.StartPolling()
+
+		games["bf2142"] = &Game{
+			"bf2142",
+			bf2142Poller,
+			bf2142Runner,
+			conf["bf2142SettingsDir"],
+		}
+	}
+
 	// UT2004
 	if conf["ut2004Exec"] != "" {
 		ut2004Runner := controller.NewRunner("ut2004", conf["ut2004Exec"], conf["ut2004SettingsDir"],

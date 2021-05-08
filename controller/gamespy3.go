@@ -131,7 +131,12 @@ func GameSpyBF2Parser(m map[string]string) *ServerStatus {
 	if len(m) == 0 {
 		return nil
 	}
+
+	// bf2 bots
 	aiBot_ := strings.Split(m["AIBot_"], ",")
+	// bg2142 bots
+	pid_ := strings.Split(m["pid_"], ",")
+
 	player_ := strings.Split(m["player_"], ",")
 	team_ := strings.Split(m["team_"], ",")
 	score_ := strings.Split(m["score_"], ",")
@@ -140,7 +145,7 @@ func GameSpyBF2Parser(m map[string]string) *ServerStatus {
 	ping_ := strings.Split(m["ping_"], ",")
 	players := make([]Player, 0)
 	for i:=0; i< len(player_); i++ {
-		if aiBot_[i] == "0"  {
+		if len(m["AIBot_"])>0 && aiBot_[i] == "0" || len(m["pid_"])>0 && pid_[i] != "0" {
 			players = append(players, Player{
 				player_[i],
 				team_[i],
@@ -156,7 +161,7 @@ func GameSpyBF2Parser(m map[string]string) *ServerStatus {
 		"ONLINE",
 		strings.ToUpper(m["mapname"]),
 		strings.ToUpper(m["gamevariant"]),
-		strings.ToUpper(m["gametype"]),
+		strings.ToUpper(m["gametype"]) + "/" + m["bf2_mapsize"] + m["bf2142_mapsize"],
 		m["numplayers"],
 		m["maxplayers"],
 		"-",

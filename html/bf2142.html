@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        const gameId = "bf2142";
+    </script>
+    <script src="script.js"></script>
+    <style type="text/css">
+        body {
+            background-color: #121a25;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <title>BF1942 Admin Console</title>
+</head>
+<body>
+<div style="text-align: center; width: 100%"><img src="bf2142.png" alt="BF2 Logo"/>
+    <form method="post" action="http://localhost:9000">
+        <table align="center" cellspacing="3">
+            <tr>
+                <th class="hdr">SETTINGS</th>
+                <th class="hdr">MAPS</th>
+                <th></th>
+                <th class="hdr">SELECTED MAPS</th>
+            </tr>
+            <tr>
+                <td class="pane">
+                    <table class="settings" width="100%" cellspacing="2">
+                        <tr>
+                            <td width="100%" align="left" colspan="2">MAX PLAYERS:</td>
+                            <td><input id="maxPlayers" size="2" value=""/></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left">ROUND TIME LIMIT:</td>
+                            <td><input id="roundTimeLimit" size="2" value=""/></td>
+                            <td>MIN</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left">NUMBER OF ROUNDS:</td>
+                            <td><input id="nrOfRounds" size="2" value=""/></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left">SPAWN TIME:</td>
+                            <td><input id="spawnTime" size="2" value=""/></td>
+                            <td>SEC</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left">GAME START DELAY:</td>
+                            <td><input id="gameStartDelay" size="2" value=""/></td>
+                            <td>SEC</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left">TICKETS:</td>
+                            <td><input id="tickets" size="2" value=""/></td>
+                            <td>%</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left">FRIENDLY FIRE:</td>
+                            <td><input id="friendlyFire" size="2" value=""/></td>
+                            <td>%</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left">AI SKILLS:</td>
+                            <td><input id="aiSkills" size="2" value=""/></td>
+                            <td>%</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="pane">
+                    <select id="maps" size="12" multiple>
+                    </select>
+                </td>
+                <td>
+                    <input id="teamRatioRed" size="2" value="" type="hidden"/>
+                    <input id="teamRatioBlue" size="2" value="" type="hidden"/>
+                    <button onclick="return add();">&gt;</button>
+                    <br/>
+                    <button onclick="return remove();">&lt;</button>
+                </td>
+                <td class="pane">
+                    <select id="selected" size="12" multiple>
+                    </select>
+                </td>
+            </tr>
+            <tr><td colspan="4">&nbsp;</td></tr>
+            <tr>
+                <th class="hdr">SERVER STATUS</th>
+                <th class="hdr" colspan="3">PLAYERS</th>
+            </tr>
+            <tr>
+                <td class="pane">
+                    <table class="settings" style="text-align: left;" width="100%" cellspacing="2">
+                        <tr>
+                            <td>STATUS:</td>
+                            <td id="status" width="100%"></td>
+                        </tr>
+                        <tr>
+                            <td>MOD:</td>
+                            <td id="mod"></td>
+                        </tr>
+                        <tr>
+                            <td>MAP:</td>
+                            <td id="map"></td>
+                        </tr>
+                        <tr>
+                            <td>GAME&nbsp;TYPE:</td>
+                            <td id="gameType"></td>
+                        </tr>
+                        <tr>
+                            <td>PLAYERS:</td>
+                            <td id="players"></td>
+                        </tr>
+                        <tr style="display: none;">
+                            <td>TICKETS:</td>
+                            <td><span class="red" id="tickets1"></span>/<span class="blue" id="tickets2"></span></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="pane" colspan="3">
+                    <table id="playerList" class="settings" style="text-align: left;" width="80%" cellspacing="2">
+                        <tr>
+                            <th>Player</th>
+                            <th>Score</th>
+                            <th>Kills</th>
+                            <th>Deaths</th>
+                            <th>Ping</th>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr><td colspan="4">&nbsp;</td></tr>
+            <tr>
+                <td colspan="4">
+                    <button title="Save changes without restarting the server" onclick="return save();">Save Changes</button>
+                    <button title="Restores default configuration without a restart" onclick="return restore();">Restore Defaults</button>
+                    <button id="startButton" title="Starts the server applying any pending changes" onclick="return startServer();">Start Server</button>
+                    <button id="stopButton" title="Stops the server" onclick="return stopServer();">Stop Server</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="coolAlert" class="coolAlert" style="display: none;">
+    <div id="coolAlertInner" class="coolAlertInner coolAlertInnerHidden">
+        <table>
+            <tr>
+                <th class="hdr">SERVER MESSAGE</th>
+            </tr>
+            <tr>
+                <td class="coolAlertMsg">
+                    <div id="serverMessage" style="padding: 10px;"></div>
+                    <button onclick="closeAlert(); return false;">OK</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

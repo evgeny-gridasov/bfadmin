@@ -17,11 +17,19 @@ func Atoi(str string) int {
 	return i
 }
 
+func Atof(str string) float64 {
+	i, err := strconv.ParseFloat(str, 64)
+	if err != nil {
+		return 0
+	}
+	return i
+}
+
 func MakeId(mapName string, gameType string, modName string) string {
 	return mapName + ":" + gameType + ":"+ modName
 }
 
-func MakeName(mapName string, modName string) string {
+func MakeNameRefractor1(mapName string, modName string) string {
 	var m = modName
 	switch modName {
 	case "bfvietnam":
@@ -36,6 +44,11 @@ func MakeName(mapName string, modName string) string {
 		m = "1918"
 	}
 	return "[" + m + "] " + mapName
+}
+
+func MakeNameRefractor2(mapName string, gameType string, size string) string {
+	gt := strings.TrimPrefix(gameType, "gpm_")
+	return mapName + " [" + gt + "-" +size+ "] "
 }
 
 func ReadPropertiesFile(file string) map[string]string{

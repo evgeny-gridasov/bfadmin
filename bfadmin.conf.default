@@ -15,9 +15,15 @@ bfvGameSpy = localhost:22001
 
 # Battlefield 2
 bf2SettingsDir = /opt/bf2-server/mods/bf2/settings
-bf2Exec = /opt/bf2-server/start.sh +noStatusMonitor 1
+bf2Exec = /opt/bf2-server/start.sh
 bf2ExecArgs = +noStatusMonitor 1
 bf2GameSpy = localhost:29900
+
+# Battlefield 2142
+bf2142SettingsDir = /opt/bf2142-server/mods/bf2142/settings
+bf2142Exec = /opt/bf2142-server/start.sh
+bf2142ExecArgs = +noStatusMonitor 1
+bf2142GameSpy = localhost:29901
 
 # Unreal Tournament 2004
 ut2004SettingsDir = /opt/ut2004/serverfiles/System
