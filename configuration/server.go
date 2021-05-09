@@ -30,7 +30,7 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 	switch gameId {
 	case "bfv", "bf1942":
 		readRefractor1Config(reader, &config)
-	case "bf2", "bf2142":
+	case "bf2", "prbf2", "bf2142":
 		readRefractor2Config(reader, &config)
 	}
 
@@ -47,7 +47,7 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 	switch gameId {
 	case "bfv", "bf1942":
 		config.SelectedMaps = getSelectedRefractor1Maps(reader, selectedMapsSet)
-	case "bf2", "bf2142":
+	case "bf2", "prbf2", "bf2142":
 		config.SelectedMaps = getSelectedRefractor2Maps(reader, selectedMapsSet)
 	}
 
@@ -62,7 +62,7 @@ func ReadConfig(gameId string, dir string) ServerConfig {
 	switch gameId {
 	case "bfv", "bf1942":
 		config.AvailableMaps = getAllRefractor1Maps(reader, selectedMapsSet)
-	case "bf2", "bf2142":
+	case "bf2", "prbf2", "bf2142":
 		config.AvailableMaps = getAllRefractor2Maps(reader, selectedMapsSet)
 	}
 
@@ -85,7 +85,7 @@ func WriteConfig(gameId string, dir string, config *ServerConfig) {
 	switch gameId {
 	case "bfv", "bf1942":
 		newConfig = renderRefractor1Config(reader, config)
-	case "bf2", "bf2142":
+	case "bf2", "prbf2", "bf2142":
 		newConfig = renderRefractor2Config(reader, config)
 	default:
 		return
@@ -104,7 +104,7 @@ func WriteConfig(gameId string, dir string, config *ServerConfig) {
 	switch gameId {
 	case "bfv", "bf1942":
 		newMapConfig = renderRefractor1MapsList(config)
-	case "bf2", "bf2142":
+	case "bf2", "prbf2", "bf2142":
 		newMapConfig = renderRefractor2MapsList(config)
 	}
 

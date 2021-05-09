@@ -125,12 +125,13 @@ func (r Runner) cancelShutdown(shutdown chan<- bool) {
 
 func (r* Runner) Stop() {
 	if r.cmd != nil {
-		log.Printf("Stopping PID=%d", r.cmd.Process.Pid)
 		r.Status = "STOPPING"
-		if r.Name == "bf2" || r.Name == "bf2142" { // BF2/BF2142 are special =(
-			r.cmd.Process.Signal(syscall.Signal(15))
-		} else {
-			r.cmd.Process.Signal(syscall.Signal(2))
+		signal := syscall.SIGINT
+		if r.Name == "bf2" || r.Name == "bf2142" || r.Name == "prbf2" {
+			// BF2/BF2142 are special =(
+			signal = syscall.SIGTERM
 		}
+		log.Printf("Stopping %s PID=%d with SIG=%d", r.Name, r.cmd.Process.Pid, signal)
+		r.cmd.Process.Signal(signal)
 	}
 }

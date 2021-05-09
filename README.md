@@ -10,6 +10,7 @@ Games supported by BFADMIN:
 - Battlefield Vietnam
 - Battlefield 1942
 - Battlefield 2
+- Battlefield 2 Project Reality
 - Battlefield 2142
 - Unreal Tournament 2004
 

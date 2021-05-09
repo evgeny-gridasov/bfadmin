@@ -25,6 +25,12 @@ bf2142Exec = /opt/bf2142-server/start.sh
 bf2142ExecArgs = +noStatusMonitor 1
 bf2142GameSpy = localhost:29901
 
+# Battlefield 2 - Project Reality
+prBf2SettingsDir = /opt/prbf2-server/mods/pr/settings
+prBf2Exec = /opt/prbf2-server/start_pr.sh
+prBf2ExecArgs = +noStatusMonitor 1
+prBf2GameSpy = localhost:29902
+
 # Unreal Tournament 2004
 ut2004SettingsDir = /opt/ut2004/serverfiles/System
 ut2004Exec = /opt/ut2004/serverfiles/System/ucc-bin

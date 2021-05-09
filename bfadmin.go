@@ -198,6 +198,26 @@ func main() {
 		}
 	}
 
+
+	// BF2 - Project Reality
+	if conf["prBf2Exec"] != "" {
+		prBf2Runner := controller.NewRunner("prbf2", conf["prBf2Exec"], conf["prBf2SettingsDir"],
+			util.ParseCommandLine(conf["prBf2ExecArgs"]), maxRunTimeMin)
+		prBf2GameSpy := controller.GameSpyV3{
+			HostPort: conf["prBf2GameSpy"],
+			Parser:   controller.GameSpyBF2Parser,
+		}
+		prBf2Poller := controller.NewPoller(&prBf2GameSpy, prBf2Runner)
+		prBf2Poller.StartPolling()
+
+		games["prbf2"] = &Game{
+			"prbf2",
+			prBf2Poller,
+			prBf2Runner,
+			conf["prBf2SettingsDir"],
+		}
+	}
+
 	// UT2004
 	if conf["ut2004Exec"] != "" {
 		ut2004Runner := controller.NewRunner("ut2004", conf["ut2004Exec"], conf["ut2004SettingsDir"],
