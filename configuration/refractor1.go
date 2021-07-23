@@ -52,11 +52,12 @@ func getSelectedRefractor1Maps(reader *bufio.Reader, selectedMapsSet map[string]
 
 		if len(fields) == 4 {
 			if fields[0] == "game.addLevel" {
+				id := util.MakeId(fields[1], fields[2], fields[3])
 				selectedMaps = append(selectedMaps, GameMap{
-					util.MakeId(fields[1], fields[2], fields[3]),
+					id,
 					util.MakeNameRefractor1(fields[1], fields[3]),
 				})
-				selectedMapsSet[fields[1]] = true
+				selectedMapsSet[id] = true
 			}
 		}
 		if err != nil {
@@ -73,9 +74,10 @@ func getAllRefractor1Maps(reader *bufio.Reader, selectedMapsSet map[string]bool)
 		fields := strings.Fields(readString)
 
 		if len(fields) == 4 {
-			if fields[0] == "game.addLevel" && !selectedMapsSet[fields[1]] {
+			id := util.MakeId(fields[1], fields[2], fields[3])
+			if fields[0] == "game.addLevel" && !selectedMapsSet[id] {
 				allMaps = append(allMaps, GameMap{
-					util.MakeId(fields[1], fields[2], fields[3]),
+					id,
 					util.MakeNameRefractor1(fields[1], fields[3]),
 				})
 			}
