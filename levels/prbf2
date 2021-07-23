@@ -1,3 +1,4 @@
+mapList.append adak gpm_coop 128
 mapList.append albasrah_2 gpm_coop 16
 mapList.append albasrah_2 gpm_coop 32
 mapList.append albasrah_2 gpm_coop 64
@@ -47,8 +48,6 @@ mapList.append hades_peak gpm_coop 32
 mapList.append hades_peak gpm_coop 64
 mapList.append hill_488 gpm_coop 64
 mapList.append iron_ridge gpm_coop 64
-mapList.append iron_thunder gpm_coop 16
-mapList.append iron_thunder gpm_coop 64
 mapList.append jabal gpm_coop 16
 mapList.append jabal gpm_coop 32
 mapList.append jabal gpm_coop 64
@@ -89,8 +88,6 @@ mapList.append op_barracuda gpm_coop 16
 mapList.append op_barracuda gpm_coop 32
 mapList.append op_barracuda gpm_coop 64
 mapList.append op_barracuda gpm_coop 128
-mapList.append operation_archer gpm_coop 16
-mapList.append operation_archer gpm_coop 64
 mapList.append operation_falcon gpm_coop 32
 mapList.append operation_falcon gpm_coop 64
 mapList.append operation_ghost_train gpm_coop 16
@@ -98,6 +95,8 @@ mapList.append operation_marlin gpm_coop 16
 mapList.append operation_marlin gpm_coop 32
 mapList.append operation_marlin gpm_coop 64
 mapList.append operation_soul_rebel gpm_coop 64
+mapList.append operation_thunder gpm_coop 16
+mapList.append operation_thunder gpm_coop 64
 mapList.append outpost gpm_coop 64
 mapList.append pavlovsk_bay gpm_coop 16
 mapList.append pavlovsk_bay gpm_coop 32
