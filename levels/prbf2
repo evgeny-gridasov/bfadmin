@@ -32,6 +32,7 @@ mapList.append carentan gpm_coop 32
 mapList.append carentan gpm_coop 64
 mapList.append charlies_point gpm_coop 64
 mapList.append dovre gpm_coop 64
+mapList.append dovre_winter gpm_coop 32
 mapList.append dovre_winter gpm_coop 64
 mapList.append dragon_fly gpm_coop 16
 mapList.append dragon_fly gpm_coop 64
@@ -53,8 +54,10 @@ mapList.append jabal gpm_coop 32
 mapList.append jabal gpm_coop 64
 mapList.append jabal gpm_coop 128
 mapList.append kafar_halab gpm_coop 16
+mapList.append kafar_halab gpm_coop 32
 mapList.append kafar_halab gpm_coop 64
 mapList.append kafar_halab gpm_coop 128
+mapList.append karbala gpm_coop 32
 mapList.append karbala gpm_coop 64
 mapList.append kashan_desert gpm_coop 16
 mapList.append kashan_desert gpm_coop 32
@@ -67,6 +70,7 @@ mapList.append khamisiyah gpm_coop 128
 mapList.append kokan gpm_coop 16
 mapList.append kokan gpm_coop 32
 mapList.append kokan gpm_coop 64
+mapList.append kokan gpm_coop 128
 mapList.append korengal gpm_coop 64
 mapList.append kozelsk gpm_coop 16
 mapList.append kozelsk gpm_coop 32
@@ -77,6 +81,7 @@ mapList.append lashkar_valley gpm_coop 64
 mapList.append masirah gpm_coop 16
 mapList.append masirah gpm_coop 128
 mapList.append merville gpm_coop 64
+mapList.append musa_qala gpm_coop 32
 mapList.append musa_qala gpm_coop 64
 mapList.append muttrah_city_2 gpm_coop 16
 mapList.append muttrah_city_2 gpm_coop 32
@@ -88,15 +93,20 @@ mapList.append op_barracuda gpm_coop 16
 mapList.append op_barracuda gpm_coop 32
 mapList.append op_barracuda gpm_coop 64
 mapList.append op_barracuda gpm_coop 128
+mapList.append operation_bobcat gpm_coop 16
+mapList.append operation_bobcat gpm_coop 64
+mapList.append operation_bobcat gpm_coop 128
 mapList.append operation_falcon gpm_coop 32
 mapList.append operation_falcon gpm_coop 64
 mapList.append operation_ghost_train gpm_coop 16
 mapList.append operation_marlin gpm_coop 16
 mapList.append operation_marlin gpm_coop 32
 mapList.append operation_marlin gpm_coop 64
+mapList.append operation_marlin gpm_coop 128
 mapList.append operation_soul_rebel gpm_coop 64
 mapList.append operation_thunder gpm_coop 16
 mapList.append operation_thunder gpm_coop 64
+mapList.append outpost gpm_coop 32
 mapList.append outpost gpm_coop 64
 mapList.append pavlovsk_bay gpm_coop 16
 mapList.append pavlovsk_bay gpm_coop 32
@@ -119,6 +129,7 @@ mapList.append sbeneh_outskirts gpm_coop 16
 mapList.append sbeneh_outskirts gpm_coop 32
 mapList.append sbeneh_outskirts gpm_coop 64
 mapList.append shahadah gpm_coop 16
+mapList.append shahadah gpm_coop 32
 mapList.append shahadah gpm_coop 64
 mapList.append shijiavalley gpm_coop 16
 mapList.append shijiavalley gpm_coop 32
@@ -134,4 +145,9 @@ mapList.append vadso_city gpm_coop 32
 mapList.append vadso_city gpm_coop 64
 mapList.append vadso_city gpm_coop 128
 mapList.append wanda_shan gpm_coop 64
+mapList.append xiangshan gpm_coop 32
 mapList.append xiangshan gpm_coop 64
+mapList.append yamalia gpm_coop 16
+mapList.append yamalia gpm_coop 32
+mapList.append yamalia gpm_coop 64
+mapList.append yamalia gpm_coop 128
