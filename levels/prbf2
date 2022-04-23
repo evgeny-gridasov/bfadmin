@@ -18,8 +18,10 @@ mapList.append beirut gpm_coop 16
 mapList.append beirut gpm_coop 32
 mapList.append beirut gpm_coop 64
 mapList.append beirut gpm_coop 128
+mapList.append bijar_canyons gpm_coop 16
 mapList.append bijar_canyons gpm_coop 32
 mapList.append bijar_canyons gpm_coop 64
+mapList.append bijar_canyons gpm_coop 128
 mapList.append black_gold gpm_coop 16
 mapList.append black_gold gpm_coop 32
 mapList.append black_gold gpm_coop 64
@@ -37,6 +39,7 @@ mapList.append dovre_winter gpm_coop 64
 mapList.append dragon_fly gpm_coop 16
 mapList.append dragon_fly gpm_coop 64
 mapList.append fallujah_west gpm_coop 64
+mapList.append fields_of_kassel gpm_coop 128
 mapList.append fools_road gpm_coop 16
 mapList.append fools_road gpm_coop 32
 mapList.append fools_road gpm_coop 64
@@ -147,7 +150,3 @@ mapList.append vadso_city gpm_coop 128
 mapList.append wanda_shan gpm_coop 64
 mapList.append xiangshan gpm_coop 32
 mapList.append xiangshan gpm_coop 64
-mapList.append yamalia gpm_coop 16
-mapList.append yamalia gpm_coop 32
-mapList.append yamalia gpm_coop 64
-mapList.append yamalia gpm_coop 128
